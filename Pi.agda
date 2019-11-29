@@ -9,6 +9,7 @@ open import Relation.Binary.PropositionalEquality
 infixr 70 _×ᵤ_
 infixr 60 _+ᵤ_
 infixr 50 _⊚_
+infix 100 !_
 
 data 𝕌 : Set where
   𝟘       : 𝕌
@@ -87,6 +88,68 @@ eval (c₁ ⊚ c₂) v = eval c₂ (eval c₁ v)
 eval (c₁ ⊕ c₂) (inj₁ v) = inj₁ (eval c₁ v)
 eval (c₁ ⊕ c₂) (inj₂ v) = inj₂ (eval c₂ v)
 eval (c₁ ⊗ c₂) (v₁ , v₂) = (eval c₁ v₁ , eval c₂ v₂)
+
+!_ : {A B : 𝕌} → A ⟷ B → B ⟷ A
+! unite₊l = uniti₊l
+! uniti₊l = unite₊l
+! unite₊r = uniti₊r
+! uniti₊r = unite₊r
+! swap₊ = swap₊
+! assocl₊ = assocr₊
+! assocr₊ = assocl₊
+! unite⋆l = uniti⋆l
+! uniti⋆l = unite⋆l
+! unite⋆r = uniti⋆r
+! uniti⋆r = unite⋆r
+! swap⋆ = swap⋆
+! assocl⋆ = assocr⋆
+! assocr⋆ = assocl⋆
+! absorbr = factorzl
+! absorbl = factorzr
+! factorzr = absorbl
+! factorzl = absorbr
+! dist = factor
+! factor = dist
+! distl = factorl
+! factorl = distl
+! id⟷ = id⟷
+! (c₁ ⊚ c₂) = (! c₂) ⊚ (! c₁)
+! (c₁ ⊕ c₂) = (! c₁) ⊕ (! c₂)
+! (c₁ ⊗ c₂) = (! c₁) ⊗ (! c₂)
+
+ΠisRev : ∀ {A B} → (c : A ⟷ B) (a : ⟦ A ⟧) → eval (c ⊚ ! c) a ≡ a
+ΠisRev unite₊l (inj₂ y) = refl
+ΠisRev uniti₊l a = refl
+ΠisRev unite₊r (inj₁ x) = refl
+ΠisRev uniti₊r a = refl
+ΠisRev swap₊ (inj₁ x) = refl
+ΠisRev swap₊ (inj₂ y) = refl
+ΠisRev assocl₊ (inj₁ x) = refl
+ΠisRev assocl₊ (inj₂ (inj₁ x)) = refl
+ΠisRev assocl₊ (inj₂ (inj₂ y)) = refl
+ΠisRev assocr₊ (inj₁ (inj₁ x)) = refl
+ΠisRev assocr₊ (inj₁ (inj₂ y)) = refl
+ΠisRev assocr₊ (inj₂ y) = refl
+ΠisRev unite⋆l (tt , y) = refl
+ΠisRev uniti⋆l a = refl
+ΠisRev unite⋆r (x , tt) = refl
+ΠisRev uniti⋆r a = refl
+ΠisRev swap⋆ (x , y) = refl
+ΠisRev assocl⋆ (x , (y , z)) = refl
+ΠisRev assocr⋆ ((x , y) , z) = refl
+ΠisRev dist (inj₁ x , z) = refl
+ΠisRev dist (inj₂ y , z) = refl
+ΠisRev factor (inj₁ (x , z)) = refl
+ΠisRev factor (inj₂ (y , z)) = refl
+ΠisRev distl (x , inj₁ y) = refl
+ΠisRev distl (x , inj₂ z) = refl
+ΠisRev factorl (inj₁ (x , y)) = refl
+ΠisRev factorl (inj₂ (x , z)) = refl
+ΠisRev id⟷ a = refl
+ΠisRev (c₁ ⊚ c₂) a rewrite ΠisRev c₂ (eval c₁ a) = ΠisRev c₁ a
+ΠisRev (c₁ ⊕ c₂) (inj₁ x) rewrite ΠisRev c₁ x = refl
+ΠisRev (c₁ ⊕ c₂) (inj₂ y) rewrite ΠisRev c₂ y = refl
+ΠisRev (c₁ ⊗ c₂) (x , y) rewrite ΠisRev c₁ x | ΠisRev c₂ y = refl
 
 𝔹 𝔹² 𝔹³ 𝔹⁴ : 𝕌
 𝔹   = 𝟙 +ᵤ 𝟙
