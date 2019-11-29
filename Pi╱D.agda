@@ -12,6 +12,7 @@ open import Relation.Binary.PropositionalEquality
 open import Relation.Binary.Core
 open import Relation.Nullary
 open import Induction.Nat
+open import Relation.Binary
 
 infix  90 𝟙/_
 infixr 70 _×ᵤ_

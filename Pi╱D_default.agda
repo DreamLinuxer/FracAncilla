@@ -10,6 +10,7 @@ open import Data.Maybe
 open import Function using (_∘_)
 open import Relation.Binary.PropositionalEquality
 open import Relation.Binary.Core
+open import Relation.Binary
 open import Relation.Nullary
 
 infix  99 𝟙/_
