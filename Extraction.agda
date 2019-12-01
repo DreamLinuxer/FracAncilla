@@ -1,4 +1,4 @@
-{-# OPTIONS --safe #-}
+{-# OPTIONS --without-K --safe #-}
 module Extraction where
 open import Data.Empty
 open import Data.Unit
@@ -6,7 +6,6 @@ open import Data.Product
 open import Data.Sum
 open import Data.Maybe
 open import Relation.Binary.PropositionalEquality
-open import Relation.Binary.HeterogeneousEquality hiding (subst)
 open import Relation.Nullary
 open import Pi
 open import Pi╱●
@@ -57,24 +56,6 @@ Inj𝕌≡ 𝟘 = refl
 Inj𝕌≡ 𝟙 = refl
 Inj𝕌≡ (t₁ +ᵤ t₂) rewrite (Inj𝕌≡ t₁) | (Inj𝕌≡ t₂) = refl
 Inj𝕌≡ (t₁ ×ᵤ t₂) rewrite (Inj𝕌≡ t₁) | (Inj𝕌≡ t₂) = refl
-
-Inj⟦𝕌⟧≅ : {t : 𝕌} (x : ⟦ t ⟧) → x ≅ Inj⟦𝕌⟧ x
-Inj⟦𝕌⟧≅ {𝟙} tt = refl
-Inj⟦𝕌⟧≅ {t₁ +ᵤ t₂} (inj₁ x) = inj1 (Inj𝕌≡ t₂) (Inj⟦𝕌⟧≅ x)
-  where
-    inj1 : {A B A' B' : Set} {x : A} {x' : A'} → B ≡ B' → x ≅ x'
-         → inj₁ {B = B} x ≅ inj₁ {B = B'} x'
-    inj1 refl refl = refl
-Inj⟦𝕌⟧≅ {t₁ +ᵤ t₂} (inj₂ y) = inj2 (Inj𝕌≡ t₁) (Inj⟦𝕌⟧≅ y)
-  where
-    inj2 : {A B A' B' : Set} {y : B} {y' : B'} → A ≡ A' → y ≅ y'
-         → inj₂ {A = A} y ≅ inj₂ {A = A'} y'
-    inj2 refl refl = refl
-Inj⟦𝕌⟧≅ {t₁ ×ᵤ t₂} (x , y) = ⦅ Inj⟦𝕌⟧≅ x , Inj⟦𝕌⟧≅ y ⦆
-  where
-    ⦅_,_⦆ : {A B A' B' : Set} {x : A} {y : B} {x' : A'} {y' : B'} → x ≅ x' → y ≅ y'
-            → (x , y) ≅ (x' , y')
-    ⦅ refl , refl ⦆ = refl
 
 Eval≡ : ∀ {t₁ t₂} {v} (c : t₁ ⟷ t₂)
       → interp (Inj⟷ c) (Inj⟦𝕌⟧ v) ≡ just (Inj⟦𝕌⟧ (eval c v))
