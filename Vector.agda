@@ -6,10 +6,8 @@ open import Data.Product using (_×_; _,_; proj₁; proj₂; Σ-syntax)
 open import Data.Vec public
 open import Data.Vec.Relation.Unary.Any.Properties public
 open import Data.Vec.Any using (Any; here; there; index) public
+open import Data.Vec.Membership.Propositional public
 open import Relation.Binary.PropositionalEquality
-
-_∈_ : ∀ {ℓ} {A : Set ℓ} {n} → (a : A) → Vec A n → Set _
-a ∈ A = Any (a ≡_) A
 
 Vec× : ∀ {n m} {A B : Set} → Vec A n → Vec B m → Vec (A × B) (n * m)
 Vec× va vb = concat (map (λ a₁ → map (a₁ ,_) vb) va)
