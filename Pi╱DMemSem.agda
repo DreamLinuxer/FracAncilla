@@ -10,9 +10,13 @@ open import Data.Empty using (⊥)
 open import Data.Unit using (⊤; tt)
 open import Data.Sum using (_⊎_; inj₁; inj₂)
 open import Data.Product using (_×_; _,_; proj₁; proj₂; Σ-syntax)
+open import Data.Vec
+open import Data.Vec.Relation.Unary.Any.Properties
+open import Data.Vec.Any using (Any; here; there; index)
+open import Data.Vec.Membership.Propositional
+open import Data.Vec.Membership.Propositional.Properties
 open import Relation.Nullary
 open import Relation.Binary.PropositionalEquality hiding ([_])
-open import Vector
 open import Pi╱D
 
 infix  80 ∣_∣
@@ -28,14 +32,14 @@ Enum : (A : 𝕌) → Vec ⟦ A ⟧ ∣ A ∣
 Enum 𝟘          = []
 Enum 𝟙          = tt ∷ []
 Enum (A₁ +ᵤ A₂) = map inj₁ (Enum A₁) ++ map inj₂ (Enum A₂)
-Enum (A₁ ×ᵤ A₂) = Vec× (Enum A₁) (Enum A₂)
+Enum (A₁ ×ᵤ A₂) = allPairs (Enum A₁) (Enum A₂)
 Enum (𝟙/ A)     = ↻ ∷ []
 
 Find : {A : 𝕌} (x : ⟦ A ⟧) → x ∈ Enum A
 Find {𝟙} tt = here refl
-Find {A₁ +ᵤ A₂} (inj₁ x) = ++⁺ˡ {xs = map inj₁ (Enum A₁)} (∈map inj₁ x (Find x))
-Find {A₁ +ᵤ A₂} (inj₂ y) = ++⁺ʳ (map inj₁ (Enum A₁)) (∈map inj₂ y (Find y))
-Find {A₁ ×ᵤ A₂} (x , y) = inVec× (Enum A₁) (Enum A₂) x y (Find x) (Find y)
+Find {A₁ +ᵤ A₂} (inj₁ x) = ++⁺ˡ {xs = map inj₁ (Enum A₁)} (∈-map⁺ inj₁ (Find x))
+Find {A₁ +ᵤ A₂} (inj₂ y) = ++⁺ʳ (map inj₁ (Enum A₁)) (∈-map⁺ inj₂ (Find y))
+Find {A₁ ×ᵤ A₂} (x , y) = ∈-allPairs⁺ (Find x) (Find y)
 Find {𝟙/ t} ↻ = here refl
 
 Find' : {A : 𝕌} (x : ⟦ A ⟧) → Fin ∣ A ∣
