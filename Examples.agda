@@ -14,7 +14,7 @@ revrev-ext : 𝟙/_ {𝟙/ 𝕋} ↻ ⟷ 𝔹
 revrev-ext = Ext∙⟶ (Pi╱●.revrev {Pi.𝔹 # 𝕋})
 
 trace₃ : Vec State' 15
-trace₃ = run _ ⟪ revrev-ext ∥ Enum (𝟙/_ {𝟙/_ {𝔹} 𝕋} ↻) [ 0F ]⟫
+trace₃ = run _ ⟪ revrev-ext ∥ Enum (𝟙/_ {𝟙/_ {𝔹} 𝕋} ↻) [ zero ]⟫
 
 _⊸_ : (A B : ∙𝕌) → ∙𝕌
 A ⊸ B = ∙𝟙/ A ∙×ᵤ ❰ B ❱
