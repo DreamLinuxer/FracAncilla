@@ -1,11 +1,12 @@
-{-# OPTIONS --without-K --safe #-}
+{-# OPTIONS --without-K #-}
 module Everything where
-import Pi           -- Sec 3
-import Pi╱D_default -- Sec 4.2 & 4.3
-import Pi╱D         -- Sec 4.4
-import PiMemSem     -- Sec 5.1
-import Pi╱DMemSem   -- Sec 5.2
-import T            -- Sec 6.1
-import Pi╱●         -- Sec 6.2
-import Extraction   -- Sec 6.3
-import Examples     -- Sec 6.4
+import Pi
+import Pi╱D_default
+import Pi╱D
+import PiMemSem
+import Pi╱DMemSem
+import T
+import Pi╱●
+import Extraction
+import Examples
+import Toffoli

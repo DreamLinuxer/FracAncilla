@@ -1,10 +1,12 @@
-{-# OPTIONS --rewriting #-}
+{-# OPTIONS --without-K --rewriting #-}
 module Toffoli where
 open import Relation.Binary.PropositionalEquality
 open import Data.Product
-open import Pi
+open import Pi hiding (_⟷_)
 open import Pi╱●
+open import Pi╱D hiding (⟦_⟧ ; 𝔹 ; 𝔹³)
 open import Agda.Builtin.Equality.Rewrite
+open import Extraction
 
 infixr 20 _&_
 infixr 20 _^_
@@ -63,3 +65,6 @@ inv^ 𝕋 = refl
   where
     shuffle : ∀ {A B C D} → (A ∙×ᵤ B ∙×ᵤ C) ∙×ᵤ D ∙⟷∙ (A ∙×ᵤ B ∙×ᵤ D) ∙×ᵤ C
     shuffle = ∙assocr⋆ ∙⊚ (∙id⟷ ∙⊗ (∙assocr⋆ ∙⊚ (∙id⟷ ∙⊗ ∙swap⋆))) ∙⊚ (∙id⟷ ∙⊗ ∙assocl⋆) ∙⊚ ∙assocl⋆
+
+TOFFOLI₄ : 𝔹⁴ ⟷ 𝔹⁴
+TOFFOLI₄ = Ext∙⟷∙ (∙TOFFOLI₄ {𝔽} {𝔽} {𝔽} {𝔽})
