@@ -131,9 +131,7 @@ interp (ε v) (v' , ○) with v ≟ᵤ v'
 ... | yes _ = just tt
 ... | no _ = nothing
 
-𝔹 : 𝕌
-𝔹 = 𝟙 +ᵤ 𝟙
-
+pattern 𝔹 = 𝟙 +ᵤ 𝟙
 pattern 𝔽 = inj₁ tt
 pattern 𝕋 = inj₂ tt
 

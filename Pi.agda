@@ -151,8 +151,11 @@ eval (c₁ ⊗ c₂) (v₁ , v₂) = (eval c₁ v₁ , eval c₂ v₂)
 ΠisRev (c₁ ⊕ c₂) (inj₂ y) rewrite ΠisRev c₂ y = refl
 ΠisRev (c₁ ⊗ c₂) (x , y) rewrite ΠisRev c₁ x | ΠisRev c₂ y = refl
 
+pattern 𝔽 = inj₁ tt
+pattern 𝕋 = inj₂ tt
+
 𝔹 𝔹² 𝔹³ 𝔹⁴ : 𝕌
-𝔹   = 𝟙 +ᵤ 𝟙
+𝔹 = 𝟙 +ᵤ 𝟙
 𝔹²  = 𝔹 ×ᵤ 𝔹
 𝔹³  = 𝔹 ×ᵤ 𝔹²
 𝔹⁴  = 𝔹 ×ᵤ 𝔹³
@@ -169,5 +172,3 @@ CNOT = ctrl NOT
 TOFFOLI : 𝔹³ ⟷ 𝔹³
 TOFFOLI = ctrl (ctrl NOT)
 
-CTOFFOLI : 𝔹⁴ ⟷ 𝔹⁴
-CTOFFOLI = ctrl (ctrl (ctrl NOT))
