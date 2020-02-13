@@ -100,29 +100,29 @@ Ext𝕌 ❰ T ❱ = Ext𝕌 T
 Ext𝕌 (∙𝟙/ T) with Ext𝕌 T
 ... | (t , v) = 𝟙/ v , ↻
 
-Ext∙⟷∙  : ∀ {t₁ t₂} → t₁ ∙⟷∙ t₂ → proj₁ (Ext𝕌 t₁) ⟷D proj₁ (Ext𝕌 t₂)
-Ext∙⟷∙ (∙c c) = Inj⟷ c
-Ext∙⟷∙ ∙times# = id⟷
-Ext∙⟷∙ ∙#times = id⟷
-Ext∙⟷∙ ∙id⟷ = id⟷
-Ext∙⟷∙ (c₁ ∙⊚ c₂) = Ext∙⟷∙ c₁ ⊚ Ext∙⟷∙ c₂
-Ext∙⟷∙ ∙unite⋆l = unite⋆l
-Ext∙⟷∙ ∙uniti⋆l = uniti⋆l
-Ext∙⟷∙ ∙unite⋆r = unite⋆r
-Ext∙⟷∙ ∙uniti⋆r = uniti⋆r
-Ext∙⟷∙ ∙swap⋆ = swap⋆
-Ext∙⟷∙ ∙assocl⋆ = assocl⋆
-Ext∙⟷∙ ∙assocr⋆ = assocr⋆
-Ext∙⟷∙ (c₁ ∙⊗ c₂) = Ext∙⟷∙ c₁ ⊗ Ext∙⟷∙ c₂
-Ext∙⟷∙ return = id⟷
-Ext∙⟷∙ extract = id⟷
-Ext∙⟷∙ (η T) = η (proj₂ (Ext𝕌 T))
-Ext∙⟷∙ (ε T) = ε (proj₂ (Ext𝕌 T))
+Ext⧟  : ∀ {t₁ t₂} → t₁ ⧟ t₂ → proj₁ (Ext𝕌 t₁) ⟷D proj₁ (Ext𝕌 t₂)
+Ext⧟ (∙c c) = Inj⟷ c
+Ext⧟ ∙times# = id⟷
+Ext⧟ ∙#times = id⟷
+Ext⧟ ∙id⟷ = id⟷
+Ext⧟ (c₁ ∙⊚ c₂) = Ext⧟ c₁ ⊚ Ext⧟ c₂
+Ext⧟ ∙unite⋆l = unite⋆l
+Ext⧟ ∙uniti⋆l = uniti⋆l
+Ext⧟ ∙unite⋆r = unite⋆r
+Ext⧟ ∙uniti⋆r = uniti⋆r
+Ext⧟ ∙swap⋆ = swap⋆
+Ext⧟ ∙assocl⋆ = assocl⋆
+Ext⧟ ∙assocr⋆ = assocr⋆
+Ext⧟ (c₁ ∙⊗ c₂) = Ext⧟ c₁ ⊗ Ext⧟ c₂
+Ext⧟ return = id⟷
+Ext⧟ extract = id⟷
+Ext⧟ (η T) = η (proj₂ (Ext𝕌 T))
+Ext⧟ (ε T) = ε (proj₂ (Ext𝕌 T))
 
-Ext≡ : ∀ {t₁ t₂} → (c : t₁ ∙⟷∙ t₂)
+Ext≡ : ∀ {t₁ t₂} → (c : t₁ ⧟ t₂)
      → let (t₁' , v₁') = Ext𝕌 t₁
            (t₂' , v₂') = Ext𝕌 t₂
-       in  interp (Ext∙⟷∙ c) v₁' ≡ just v₂'
+       in  interp (Ext⧟ c) v₁' ≡ just v₂'
 Ext≡ (∙c c) = Eval≡ c
 Ext≡ ∙times# = refl
 Ext≡ ∙#times = refl

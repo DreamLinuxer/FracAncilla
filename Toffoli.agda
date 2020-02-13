@@ -39,32 +39,32 @@ inv^ 𝕋 = refl
 {-# REWRITE inv^ #-}
 
 ∙times#³ : ∀ {t₁ t₂ t₃ v₁ v₂ v₃}
-         → ((t₁ ×ᵤ (t₂ ×ᵤ t₃)) # (v₁ , v₂ , v₃)) ∙⟷∙ ((t₁ # v₁) ∙×ᵤ (t₂ # v₂) ∙×ᵤ (t₃ # v₃))
+         → ((t₁ ×ᵤ (t₂ ×ᵤ t₃)) # (v₁ , v₂ , v₃)) ⧟ ((t₁ # v₁) ∙×ᵤ (t₂ # v₂) ∙×ᵤ (t₃ # v₃))
 ∙times#³ = ∙times# ∙⊚ ∙id⟷ ∙⊗ ∙times#
 
 ∙#times³ : ∀ {t₁ t₂ t₃ v₁ v₂ v₃}
-         → ((t₁ # v₁) ∙×ᵤ (t₂ # v₂) ∙×ᵤ (t₃ # v₃)) ∙⟷∙ ((t₁ ×ᵤ (t₂ ×ᵤ t₃)) # (v₁ , v₂ , v₃))
+         → ((t₁ # v₁) ∙×ᵤ (t₂ # v₂) ∙×ᵤ (t₃ # v₃)) ⧟ ((t₁ ×ᵤ (t₂ ×ᵤ t₃)) # (v₁ , v₂ , v₃))
 ∙#times³ = ∙id⟷ ∙⊗ ∙#times ∙⊚ ∙#times
 
-∙TOFFOLI : ∀ {a b c} → (𝔹 # a ∙×ᵤ 𝔹 # b ∙×ᵤ 𝔹 # c) ∙⟷∙ (𝔹 # a ∙×ᵤ 𝔹 # b ∙×ᵤ 𝔹 # ((a & b) ^ c))
+∙TOFFOLI : ∀ {a b c} → (𝔹 # a ∙×ᵤ 𝔹 # b ∙×ᵤ 𝔹 # c) ⧟ (𝔹 # a ∙×ᵤ 𝔹 # b ∙×ᵤ 𝔹 # ((a & b) ^ c))
 ∙TOFFOLI = ∙#times³ ∙⊚ TOFFOLI' ∙⊚ ∙times#³
   where
-    TOFFOLI' : ∀ {a b c} → (𝔹³ # (a , b , c)) ∙⟷∙ (𝔹³ # (a , b , ((a & b) ^ c)))
+    TOFFOLI' : ∀ {a b c} → (𝔹³ # (a , b , c)) ⧟ (𝔹³ # (a , b , ((a & b) ^ c)))
     TOFFOLI' {𝔽} {𝔽} {c} = ∙c TOFFOLI
     TOFFOLI' {𝔽} {𝕋} {c} = ∙c TOFFOLI
     TOFFOLI' {𝕋} {𝔽} {c} = ∙c TOFFOLI
     TOFFOLI' {𝕋} {𝕋} {𝔽} = ∙c TOFFOLI
     TOFFOLI' {𝕋} {𝕋} {𝕋} = ∙c TOFFOLI
 
-∙TOFFOLI₄ : ∀ {a b c d} → (𝔹 # a ∙×ᵤ 𝔹 # b ∙×ᵤ 𝔹 # c ∙×ᵤ 𝔹 # d) ∙⟷∙ (𝔹 # a ∙×ᵤ 𝔹 # b ∙×ᵤ 𝔹 # c ∙×ᵤ 𝔹 # (((a & b) & c) ^ d))
+∙TOFFOLI₄ : ∀ {a b c d} → (𝔹 # a ∙×ᵤ 𝔹 # b ∙×ᵤ 𝔹 # c ∙×ᵤ 𝔹 # d) ⧟ (𝔹 # a ∙×ᵤ 𝔹 # b ∙×ᵤ 𝔹 # c ∙×ᵤ 𝔹 # (((a & b) & c) ^ d))
 ∙TOFFOLI₄ = ∙assocl⋆ ∙⊚ ((∙uniti⋆r ∙⊚ (∙id⟷ ∙⊗ (η (𝔹 # 𝔽) ∙⊚ (extract ∙⊗ ∙id⟷)))) ∙⊗ ∙id⟷) ∙⊚
             ((∙assocl⋆ ∙⊚ ((∙assocr⋆ ∙⊚ ∙TOFFOLI) ∙⊗ ∙id⟷) ∙⊚ shuffle) ∙⊗ ∙id⟷) ∙⊚
             ∙assocr⋆ ∙⊚ (∙id⟷ ∙⊗ ∙TOFFOLI) ∙⊚ ∙assocl⋆ ∙⊚
             ((shuffle ∙⊚ ((∙TOFFOLI ∙⊚ ∙assocl⋆) ∙⊗ ∙id⟷) ∙⊚ ∙assocr⋆) ∙⊗ ∙id⟷) ∙⊚
             (((∙id⟷ ∙⊗ ((return ∙⊗ ∙id⟷) ∙⊚ ε (𝔹 # 𝔽))) ∙⊚ ∙unite⋆r) ∙⊗ ∙id⟷) ∙⊚ ∙assocr⋆
   where
-    shuffle : ∀ {A B C D} → (A ∙×ᵤ B ∙×ᵤ C) ∙×ᵤ D ∙⟷∙ (A ∙×ᵤ B ∙×ᵤ D) ∙×ᵤ C
+    shuffle : ∀ {A B C D} → (A ∙×ᵤ B ∙×ᵤ C) ∙×ᵤ D ⧟ (A ∙×ᵤ B ∙×ᵤ D) ∙×ᵤ C
     shuffle = ∙assocr⋆ ∙⊚ (∙id⟷ ∙⊗ (∙assocr⋆ ∙⊚ (∙id⟷ ∙⊗ ∙swap⋆))) ∙⊚ (∙id⟷ ∙⊗ ∙assocl⋆) ∙⊚ ∙assocl⋆
 
 TOFFOLI₄ : 𝔹⁴ ⟷ 𝔹⁴
-TOFFOLI₄ = Ext∙⟷∙ (∙TOFFOLI₄ {𝔽} {𝔽} {𝔽} {𝔽})
+TOFFOLI₄ = Ext⧟ (∙TOFFOLI₄ {𝔽} {𝔽} {𝔽} {𝔽})
